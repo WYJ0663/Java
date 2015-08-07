@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<project name="helloWorld" default="jar">
+
+    <property name="path" value="build/classes"/>
+
+    <property name="lib.dir" value="libs"/>
+
+    <property name="lib.name" value="helloworld.jar"/>
+
+    <property
+            name="android.home"
+            value="D:\WorkSoftware\android\android-sdk"/>
+
+    <property
+            name="src.dir"
+            value="src"/>
+
+    <property
+            name="android.sdk_version"
+            value="8"/>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <path id="classpath">
+
+        <pathelement path="${android.home}\platforms\android-${android.sdk_version}\android.jar"/>
+
+    </path>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${path}"/>
+        <javac srcdir="src"
+               destdir="${path}"
+               includeantruntime="on"
+               debug="on"
+               deprecation="false"
+               encoding="UTF-8">
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+
+    <fileset
+            id="resources"
+            dir="${src.dir}">
+
+        <include name="**/*.properties"/>
+
+        <include name="**/*.gif"/>
+
+        <include name="**/*.jpg"/>
+
+        <include name="**/*.png"/>
+
+        <include name="**/*.apk"/>
+    </fileset>
+
+    <target name="jar" depends="compile">
+        <jar destfile="s_${lib.name}" basedir="${path}">
+            <fileset refid="resources"/>
+        </jar>
+
+        <move file="s_${lib.name}" todir="${lib.dir}"/>
+    </target>
+
+    <target
+            name="obfuscate"
+            depends="jar">
+
+        <taskdef
+                classpath="${android.home}\tools\proguard\lib\proguard.jar"
+                resource="proguard/ant/task.properties"/>
+
+        <proguard>
+
+            <![CDATA[
+
+            -libraryjars "${android.home}/platforms/android-${android.sdk_version}/android.jar"
+
+            -injars "${lib.dir}/s_${lib.name}"
+            -outjars "${lib.dir}/${lib.name}"
+
+			-dontusemixedcaseclassnames
+            -dontskipnonpubliclibraryclassmembers
+            -dontshrink
+            -useuniqueclassmembernames
+            -dontwarn
+            -dontoptimize
+            -keepattributes **
+
+            -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+
+            -keep public class * extends android.app.Activity
+            -keep public class * extends android.app.Application
+            -keep public class * extends android.app.Service
+            -keep public class * extends android.content.BroadcastReceiver
+            -keep public class * extends android.content.ContentProvider
+            -keep public class * extends android.app.backup.BackupAgentHelper
+            -keep public class * extends android.preference.Preference
+
+            -keepclasseswithmembernames class * {
+                native <methods>;
+            }
+
+            -keepclassmembers enum * {
+                public static **[] values();
+                public static ** valueOf(java.lang.String);
+            }
+
+            -keep class * implements android.os.Parcelable {
+              public static final android.os.Parcelable$Creator *;
+            }
+
+            -keep class android.support.v4.**
+            -dontwarn android.support.v4.**
+
+            -keepclassmembers class * implements java.io.Serializable {
+                <fields>;
+            }
+
+            -keep class com.sdklm.shoumeng.sdk.game.ShouMengSDKManager { public *; }
+            ]]>
+        </proguard>
+    </target>
+
+
+</project>

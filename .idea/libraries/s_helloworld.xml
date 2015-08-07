@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="s_helloworld">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/AntTest/libs/s_helloworld.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

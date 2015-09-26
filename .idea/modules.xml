@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidAnt/AndroidAnt.iml" filepath="$PROJECT_DIR$/AndroidAnt/AndroidAnt.iml" />
       <module fileurl="file://$PROJECT_DIR$/Java.iml" filepath="$PROJECT_DIR$/Java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RSA/RSA.iml" filepath="$PROJECT_DIR$/RSA/RSA.iml" />
       <module fileurl="file://$PROJECT_DIR$/Reflect/Reflect.iml" filepath="$PROJECT_DIR$/Reflect/Reflect.iml" />
     </modules>
   </component>

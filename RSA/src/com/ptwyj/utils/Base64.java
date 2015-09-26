@@ -22,6 +22,7 @@ public class Base64 {
             return new String(b);
         } catch (Exception e) {
             return null;
+
         }
     }
 
